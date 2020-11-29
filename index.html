@@ -31,13 +31,9 @@
         <md-button class="md-icon-button md-primary" aria-label="Settings" ng-click="vm.toggleOptions()">
         <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
         </md-button>
-        <span style="font-weight: bold;">WebAssembly Explorer</span>
+        <span style="font-weight: bold;">WebAssembly Explorer (Rice COMP517 2020 EWAB Fork with Updated Toolchains)</span>
         <span flex></span>
-        <span style="font-style:italic; color: yellow;">
-          &#x261D;
-          Please also check out <a href="https://webassembly.studio">WebAssembly Studio</a>
-          &#x1F44D;
-        </span>
+        <span style="font-style:italic; color: yellow;"></span>
         <span flex></span>
         <span>{{vm.appVersion}}</span>
         </md-toolbar>
@@ -60,12 +56,12 @@
           Auto Compile
           </md-switch>
 
-          <md-switch class="md-primary" md-no-ink aria-label="Show LLVM" ng-model="vm.showLLVM" ng-change="vm.optionChanged()">
+          <!-- <md-switch class="md-primary" md-no-ink aria-label="Show LLVM" ng-model="vm.showLLVM" ng-change="vm.optionChanged()">
           <md-tooltip md-direction="top">
           Show LLVM x86 assembly generated from C/C++ directly.
           </md-tooltip>
           LLVM x86 Assembly
-          </md-switch>
+          </md-switch> -->
 
           <md-select ng-model="vm.selectedExample" md-selected-text="vm.getSelectedExampleText()" ng-change="vm.changeExample()">
           <md-optgroup label="Examples">
@@ -107,6 +103,7 @@
           </md-checkbox><br>
 
 
+          <!--
           <md-button ng-click="vm.openInFiddle($event)" class="md-raised" style="margin-left: -3px; width: 100%">Open in WasmFiddle
           <md-tooltip md-direction="top">
           Opens C/C++ file in WasmFiddle
@@ -125,6 +122,7 @@
           <label>Sharing Link</label>
           <input name="clientName" ng-model="vm.sharingLink">
           </md-input-container>
+          -->
 
           <label>Editor Options</label>
           <md-switch class="md-primary" md-no-ink aria-label="Dark Mode" ng-model="vm.darkMode" ng-change="vm.optionChanged(true)">
@@ -154,8 +152,25 @@
               </div>
               </md-toolbar>
               <div flex id="sourceCodeContainer"></div>
+              <md-toolbar style="background-color: #9b59b6">
+                <div class="md-toolbar-tools">
+                  <span>Wat</span>
+                  <span flex></span>
+                  <md-button ng-click="vm.assemble($event)" class="md-raised">
+                  <md-tooltip md-direction="top">
+                  Compile/Assemble .wat using SpiderMonkey (Ctrl / Cmd + Enter)
+                  </md-tooltip>
+                  Assemble</md-button>
+                  <md-button ng-click="vm.download($event)" class="md-raised">
+                  <md-tooltip md-direction="top">
+                  Convert .wat to .wasm and download
+                  </md-tooltip>
+                  Download</md-button>
+                </div>
+                </md-toolbar>
+                <div id="wastCodeContainer" flex></div>
             </div>
-            <div flex layout="column" ng-show="!vm.showLLVM">
+            <!-- <div flex layout="column" ng-show="!vm.showLLVM">
               <md-toolbar style="background-color: #9b59b6">
               <div class="md-toolbar-tools">
                 <span>Wat</span>
@@ -173,18 +188,18 @@
               </div>
               </md-toolbar>
               <div id="wastCodeContainer" flex></div>
-            </div>
+            </div> -->
             <div flex flex layout="column">
               <md-toolbar style="background-color: #2980b9">
               <div class="md-toolbar-tools">
                 <span>Firefox x86 Assembly</span>
                 <span flex></span>
-                <md-button ng-click="vm.toggleLLVM($event)" class="md-icon-button">
+                <!-- <md-button ng-click="vm.toggleLLVM($event)" class="md-icon-button">
                   <i class="material-icons">{{vm.showLLVM ? "chevron_right" : "chevron_left"}}</i>
                   <md-tooltip md-direction="top">
                     Show / Hide LLVM x86 Assembly
                   </md-tooltip>
-                  </md-button>
+                </md-button> -->
               </div>
               </md-toolbar>
               <div flex id="assemblyCodeContainer"></div>
@@ -193,7 +208,8 @@
                 <a href="{{vm.x86ReferencePath}}{{vm.instructionDescription.path}}.html" target="x86Reference" style="color: #FAFAFA;">{{vm.instructionDescription.description}}</a>
               </div>
             </div>
-            <div flex flex layout="column" ng-show="vm.showLLVM">
+            <!-- <div flex flex layout="column" ng-show="vm.showLLVM"> -->
+            <div flex flex layout="column">
               <md-toolbar style="background-color: #3E2723">
               <div class="md-toolbar-tools">
                 <h2>
