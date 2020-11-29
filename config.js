@@ -4,7 +4,9 @@
 
 var WasmExplorerVersion = "v2.18";
 
-var WasmExplorerServiceBaseUrl = "https://wasmexplorer-service.herokuapp.com/";
+// var WasmExplorerServiceBaseUrl = "https://wasmexplorer-service.herokuapp.com/";
+var WasmExplorerServiceBaseUrl = "http://52.87.196.236:4000/"
+// var WasmExplorerServiceBaseUrl = "http://localhost:4000/";
 
 var WasmFiddleUrl = "//wasdk.github.io/WasmFiddle/";
 
