@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 /**
- * You must include the dependency on 'ngMaterial' 
+ * You must include the dependency on 'ngMaterial'
  */
 angular.module('WasmExplorerApp', ['ngMaterial']).controller('WasmExplorerAppCtrl', WasmExplorerAppCtrl);
 
@@ -39,8 +39,8 @@ function padLeft(s, n, c) {
 }
 
 var x86JumpInstructions = [
-  "jmp", "ja", "jae", "jb", "jbe", "jc", "je", "jg", "jge", "jl", "jle", "jna", "jnae", 
-  "jnb", "jnbe", "jnc", "jne", "jng", "jnge", "jnl", "jnle", "jno", "jnp", "jns", "jnz", 
+  "jmp", "ja", "jae", "jb", "jbe", "jc", "je", "jg", "jge", "jl", "jle", "jna", "jnae",
+  "jnb", "jnbe", "jnc", "jne", "jng", "jnge", "jnl", "jnle", "jno", "jnp", "jns", "jnz",
   "jo", "jp", "jpe", "jpo", "js", "jz"
 ];
 
@@ -67,7 +67,7 @@ function WasmExplorerAppCtrl($scope, $timeout, $mdSidenav) {
   this.llvmInstructionDescription = null;
   this.hideProgress();
 
-  
+
   this.createSourceEditor();
   this.createWastEditor();
   this.createAssemblyEditor();
@@ -84,25 +84,25 @@ function WasmExplorerAppCtrl($scope, $timeout, $mdSidenav) {
 
   this.writeWelcomeMessage();
   this.listenForResizeEvents();
-  
+
   this.loadOptionDefaults();
   this.loadOptions();
-  
+
   this.loadUrlParameters();
 
   this.optionChanged();
 
   this.requestServiceVersion();
- 
+
   this.examples = Object.getOwnPropertyNames(cppExamples);
   this.selectedExample;
 
   this.dialects = ["C89", "C99", "C++98", "C++11", "C++14", "C++1z"];
-  
+
 
   this.optimizationLevels = ["0", "1", "2", "3", "4", "s"];
 
-  
+
 
   this.sharingLink = "";
 
@@ -297,7 +297,7 @@ p.toggleLLVM = function toggleLLVM() {
   this.tryCompile();
   var self = this
   setTimeout(function () {
-    self.resizeEditors();  
+    self.resizeEditors();
   }, 200);
 };
 p.toggleConsole = function toggleConsole() {
@@ -305,7 +305,7 @@ p.toggleConsole = function toggleConsole() {
   sessionStorage.setItem('showConsole', this.showConsole);
   var self = this
   setTimeout(function () {
-    self.resizeEditors();  
+    self.resizeEditors();
   }, 200);
 };
 p.execute = function execute() {
@@ -326,7 +326,7 @@ p.execute = function execute() {
   // source = "var wasm = wasmTextToBinary(\"" + source + "\");\n";
   // source += "var exports = Wasm.instantiateModule(wasm, {}).exports;\n";
   // source += "putstr(exports.main());\n";
-  
+
   // var source = source.split("\n").map(function(s) {
   //   return "\"" + s + "\\n\"";
   // }).join("\n");
@@ -364,7 +364,7 @@ p.compile = function compile() {
 
     // Parse and annotate errors if compilation fails.
     if (wast.indexOf("(module") !== 0) {
-      var re = /^.*?:(\d+?):(\d+?):(.*)$/gm; 
+      var re = /^.*?:(\d+?):(\d+?):(.*)$/gm;
       var m;
       var annotations = [];
       while ((m = re.exec(wast)) !== null) {
@@ -462,7 +462,7 @@ p.fileBug = function () {
     }
 
     window.open("https://bugzilla.mozilla.org/enter_bug.cgi?product=Core&component=JavaScript%20Engine%3A%20JIT&cc=sunfish@mozilla.com&short_desc=&comment=" + encodeURIComponent(comment));
-  });  
+  });
 };
 p.getShareUrl = function () {
   var self = this;
@@ -668,7 +668,7 @@ p.createBanner = function() {
       width: window.innerWidth,
       cell_size: 40 + Math.random() * 30
     });
-    pattern.canvas(document.getElementById('banner'));  
+    pattern.canvas(document.getElementById('banner'));
   }
   resize();
   window.addEventListener("resize", resizeThrottler, false);
@@ -727,7 +727,7 @@ p.createSourceEditor = function() {
   this.sourceEditor = ace.edit("sourceCodeContainer");
   this.sourceEditor.getSession().setMode("ace/mode/c_cpp");
   setDefaultEditorSettings(this.sourceEditor, {
-    wrap: true, 
+    wrap: true,
     enableBasicAutocompletion: true,
     enableSnippets: true,
     enableLiveAutocompletion: true
@@ -747,7 +747,7 @@ p.createWastEditor = function() {
   var self = this;
   this.wastEditor = ace.edit("wastCodeContainer");
   setDefaultEditorSettings(this.wastEditor, {
-    wrap: true, 
+    wrap: true,
     enableBasicAutocompletion: true,
     enableSnippets: true,
     enableLiveAutocompletion: true
@@ -778,15 +778,15 @@ p.annotateLLVMAssemblyEditor = function() {
   var editor = this.llvmAssemblyEditor;
   var line = editor.getSelectionRange().start.row;
   var text = editor.session.getLine(line);
-  
+
   // Descriptions
   this.llvmInstructionDescription = null;
   var mnemonic = match(/\s*(\w*)/, text, 1);
   var description = x86Reference[mnemonic.toUpperCase()];
   if (description) {
     this.llvmInstructionDescription = {
-      name: mnemonic.toLowerCase(), 
-      path: description.path, 
+      name: mnemonic.toLowerCase(),
+      path: description.path,
       description: description.description
     };
   }
@@ -814,7 +814,7 @@ p.annotateAssemblyEditor = function() {
   var editor = this.assemblyEditor;
   var line = editor.getSelectionRange().start.row;
   var text = editor.session.getLine(line);
-  
+
 
   editor.session.clearAnnotations();
   this.clearAssemblyEditorMarkers();
@@ -825,8 +825,8 @@ p.annotateAssemblyEditor = function() {
   var description = x86Reference[mnemonic.toUpperCase()];
   if (description) {
     this.instructionDescription = {
-      name: mnemonic.toLowerCase(), 
-      path: description.path, 
+      name: mnemonic.toLowerCase(),
+      path: description.path,
       description: description.description
     };
   }
@@ -1006,7 +1006,7 @@ p.createQueryEditor = function() {
   var self = this;
   this.queryEditor = ace.edit("queryContainer");
   setDefaultEditorSettings(this.queryEditor, {
-    
+
   });
   this.queryEditor.setFontSize(12);
   this.queryEditor.$blockScrolling = Infinity;
@@ -1022,12 +1022,12 @@ p.createQueryEditor = function() {
 ;; Match copy local.
 (set_local * (get_local *))
 
-;; Match all (i32.add) s-expressions where the right hand side is a constant larger than 4. 
+;; Match all (i32.add) s-expressions where the right hand side is a constant larger than 4.
 ;; The $ sigil refers to the current expression. You can access the |value| property to
 ;; refer to its text value.
 (i32.add * (i32.const {$.value>4}))
 
-;; Match all (set_local) where the value of the first child of the right hand side is "get_local". 
+;; Match all (set_local) where the value of the first child of the right hand side is "get_local".
 ;; There are easier way to do this but this shows how you can access child nodes using [].
 (set_local * {$[0].value == "get_local"})
 
@@ -1043,7 +1043,7 @@ p.createQueryEditor = function() {
 ;; Histogram of all i32.XXX operations.
 ({/i32/} {histogram("i32.xxx", $.parent[0])})
 
-;; Match all (f32.add) expressions and find the first ancestor whose first expression is equal 
+;; Match all (f32.add) expressions and find the first ancestor whose first expression is equal
 ;; to "function" then print that ancestor's second expression. This effectively prints out the
 ;; name of the function where the expression appears.
 (f32.add { print(findAncestor($, "func", 0)[1]) })
@@ -1065,13 +1065,13 @@ p.createConsoleEditor = function() {
   this.consoleEditor = ace.edit("consoleContainer");
   setDefaultEditorSettings(this.consoleEditor, {
     wrap: false
-  }); 
+  });
   this.consoleEditor.setFontSize(12);
   this.consoleEditor.$blockScrolling = Infinity;
 }
 p.appendConsole = function(s) {
   this.consoleEditor.insert(s + "\n");
-  this.consoleEditor.gotoLine(Infinity); 
+  this.consoleEditor.gotoLine(Infinity);
 
   // this.consoleEditor.selection.moveTo(Infinity, Infinity);
 };
@@ -1149,10 +1149,10 @@ p.run = function () {
     self.appendConsole(message);
   };
 
-  window.histogram = histogram; 
+  window.histogram = histogram;
   var queryText = this.queryEditor.getValue();
   var queryAst = parseSExpression(queryText);
-  
+
   if (this.selectedExample !== "Wat Source") {
     var ast = this.selectedExampleAST[this.selectedExample];
     if (ast) {
@@ -1163,23 +1163,23 @@ p.run = function () {
         var source = this.responseText;
         self.appendConsole("Parsing and Caching AST, please wait ...");
         setTimeout(function () {
-          ast = parseSExpression(source);  
+          ast = parseSExpression(source);
           self.selectedExampleAST[self.selectedExample] = ast;
           go(ast);
         }, 1);
       });
       xhr.open("GET", this.selectedExample, true);
       xhr.send();
-      self.appendConsole("Downloading " + this.selectedExample + ", this may take a while ...");  
+      self.appendConsole("Downloading " + this.selectedExample + ", this may take a while ...");
     }
-    
+
   } else {
     setTimeout(function () {
-      var ast = parseSExpression(self.wastEditor.getValue());  
+      var ast = parseSExpression(self.wastEditor.getValue());
       go(ast);
     }, 1);
   }
-  
+
   function dotify(text, length) {
     if (text.length > length) {
       return text.substring(0, length - 4) + " ...";
@@ -1189,7 +1189,7 @@ p.run = function () {
   function go(ast) {
     runQueries();
     function runQueries() {
-      var i = 0; 
+      var i = 0;
       var queries = Array.prototype.map.call(queryAst, x => x);
       function next() {
         var query = queries.shift();
