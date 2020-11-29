@@ -354,7 +354,8 @@ p.compile = function compile() {
     return;
   }
   var inputString = encodeURIComponent(source).replace('%20', '+');
-  var actionString = this.dialect.toLowerCase().indexOf("c++") >= 0 ? "cpp2wast" : "c2wast";
+  // var actionString = this.dialect.toLowerCase().indexOf("c++") >= 0 ? "cpp2wast" : "c2wast";
+  var actionString = this.dialect.toLowerCase().indexOf("c++") >= 0 ? "cpp2wat" : "c2wat";
 
   var optionsString = encodeURIComponent(this.gatherOptions().join(" "));
   self.sourceEditor.getSession().clearAnnotations();
