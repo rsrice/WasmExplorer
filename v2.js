@@ -171,7 +171,7 @@ p.loadOptionDefaults = function() {
   set("showConsole", true);
   set("showOptions", true);
   set("autoCompile", true);
-  set("showLLVM", false);
+  set("showLLVM", true);
   set("darkMode", true);
 
   set("fastMath", false);
@@ -293,7 +293,7 @@ p.toggleOptions = function toggleOptions() {
 };
 
 p.toggleLLVM = function toggleLLVM() {
-  this.showLLVM = !this.showLLVM;
+  this.showLLVM = true; //!this.showLLVM;
   this.tryCompile();
   var self = this
   setTimeout(function () {
